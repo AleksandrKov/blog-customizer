@@ -2,7 +2,6 @@ import clsx from 'clsx';
 
 import { IPropsArrowButton } from 'src/interfaces';
 
-
 import styles from './ArrowButton.module.scss';
 import arrow from 'src/images/arrow.svg';
 /** Функция для обработки открытия/закрытия формы */

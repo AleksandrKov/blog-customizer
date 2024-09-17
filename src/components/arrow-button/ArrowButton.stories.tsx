@@ -9,18 +9,22 @@ const meta: Meta<typeof ArrowButton> = {
 
 export default meta;
 type Story = StoryObj<typeof ArrowButton>;
-const [isOpen, setIsOpen] = useState<boolean>(false);
 
-function toggleOpen() {
-	setIsOpen((oldVal) => !oldVal);
-}
+// Создаём React-компонент для использования хуков
+const ArrowButtonComponent = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	function toggleOpen() {
+		setIsOpen((oldVal) => !oldVal);
+	}
+
+	return (
+		<>
+			<ArrowButton toggleOpenFn={toggleOpen} openState={isOpen} />
+		</>
+	);
+};
 
 export const ArrowButtonStory: Story = {
-	render: () => {
-		return (
-			<>
-				<ArrowButton toggleOpenFn={toggleOpen} openState={isOpen} />
-			</>
-		);
-	},
+	render: () => <ArrowButtonComponent />,
 };

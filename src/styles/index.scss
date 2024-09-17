@@ -109,6 +109,10 @@ section {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 1660px;
 	margin: auto;
 	padding: 0;
 	font: inherit;
@@ -116,10 +120,6 @@ body {
 	line-height: 1;
 	vertical-align: baseline;
 	border: 0;
-	max-width: 1660px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 ol,

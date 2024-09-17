@@ -42,7 +42,7 @@ const App = () => {
 				openState={isOpen}
 				setPageState={setPageState}
 			/>
-			<Article closeFn={handleClose}/>
+			<Article closeFn={handleClose} />
 		</div>
 	);
 };

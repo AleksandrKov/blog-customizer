@@ -1,4 +1,4 @@
-import { OptionType } from './constants/articleProps'
+import { OptionType } from './constants/articleProps';
 
 export interface IAllOptions {
 	fontFamilyOption: OptionType;
