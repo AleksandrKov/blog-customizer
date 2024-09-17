@@ -5,10 +5,14 @@ import plane from 'src/images/plane.png';
 import { Text } from 'components/text';
 
 import styles from './Article.module.scss';
+import { IPropsArticle } from 'src/interfaces';
 
-export const Article = () => {
+
+export const Article = ({ closeFn }: IPropsArticle) => {
+
+	
 	return (
-		<article className={clsx(styles.article)}>
+		<article className={clsx(styles.article)} onClick={closeFn}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
 				Портрет Западной Швейцарии
 			</Text>
@@ -22,6 +26,7 @@ export const Article = () => {
 				Фото: Hans-Peter Gauster , &quot;Bombardier CSeries CS300 HB-JCA&quot; ©
 				2017 CC BY-SA 2.0
 			</Text>
+			<div className={styles.body_text}>
 			<Text dynamic size={18}>
 				В конце 2016 года швейцарская авиакомпания Swiss получила свой первый
 				канадский «Бомбардье CS300» для полётов малой и средней дальности. Чтобы
@@ -29,6 +34,7 @@ export const Article = () => {
 				заказали живописцу. При условии, что эскиз он выполнит в одиночку и
 				лично поправит роспись, когда её будут наносить на фюзеляж.
 			</Text>
+			<p className={styles.paragrph_text}></p>
 			<Text dynamic size={18}>
 				Выбор пал на примитивиста Матиаса Форбаша, работающего под псевдонимом
 				Фиштр. Ему поставили задачу изобразить всё лучшее во франкоговорящей
@@ -37,6 +43,7 @@ export const Article = () => {
 				получился похожим на самого художника: такой же добродушный и с улыбкой
 				до ушей.
 			</Text>
+			<p className={styles.paragrph_text}></p>
 			<Text dynamic size={18}>
 				С мая 2017 года &quot;Бомбардье&quot; носит имя &quot;Швейцарская
 				Романдия&quot; и регистрационный номер HB-JCA ; совершает в среднем 4
@@ -45,6 +52,7 @@ export const Article = () => {
 				на на Майорке, Крите и Сицилии. Самолёт останется в той же ливрее, пока
 				его купит другая авиакомпания.
 			</Text>
+			</div>
 		</article>
 	);
 };

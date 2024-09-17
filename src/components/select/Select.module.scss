@@ -14,6 +14,7 @@
 	right: 6px;
 	margin-top: -12px;
 	transition: transform 0.2s ease-in-out, margin-top 0.2s ease-in-out;
+	width: 24px;
 }
 
 .placeholder {
@@ -22,7 +23,7 @@
 	align-items: center;
 	box-sizing: border-box;
 	width: 100%;
-	height: 50px;
+	height: 48px;
 	padding: 15px 17px;
 	background: rgb(255 255 255);
 	outline: 1px solid #000000;
@@ -43,8 +44,8 @@
 }
 
 .selectWrapper:not([data-is-active='true'])
-	.placeholder:not([data-status='invalid']):hover {
-	outline: 3px solid #000000;
+.placeholder:not([data-status='invalid']):hover {
+	outline: 1px solid #FFC802;
 }
 
 .select {
@@ -59,14 +60,15 @@
 	background-color: rgb(255 255 255 / 100%);
 	border-top: none;
 	outline: 3px solid #000000;
+	padding: 16px 0px;
+	gap: 4px;
 }
 
 .option {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	height: 30px;
-	padding: 5px;
+	height: 12px;
 	padding: 15px 17px;
 	background-color: rgb(255 255 255 / 100%);
 	border: 1px;
@@ -198,10 +200,10 @@
 
 .option-wide::before {
 	@include option-width-before;
-	background-image: url('./../../images/wide.svg');
+	background-image: url('../../images/wide.svg');
 }
 
 .option-narrow::before {
 	@include option-width-before;
-	background-image: url('./../../images/narrow.svg');
+	background-image: url('../../images/narrow.svg');
 }
