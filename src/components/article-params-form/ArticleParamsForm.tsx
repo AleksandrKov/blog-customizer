@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { useClose } from 'src/hooks/useClose';
 
-import { IPropsArticleParamsForm, IAllOptions } from 'src/interfaces';
-import { defaultArticleState } from 'src/constants/articleProps';
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
-import { Text } from '../text';
-import { Select } from '../select';
-import { RadioGroup } from '../radio-group';
-import { Separator } from '../separator';
+import { Text } from 'components/text';
+import { Select } from 'components/select';
+import { RadioGroup } from 'components/radio-group';
+import { Separator } from 'components/separator';
 import {
+	ArticleStateType,
+	defaultArticleState,
 	fontFamilyOptions,
 	fontSizeOptions,
 	fontColors,
@@ -19,57 +20,49 @@ import {
 
 import styles from './ArticleParamsForm.module.scss';
 
-export const ArticleParamsForm = ({
-	toggleOpenFn,
-	openState,
-	setPageState,
-}: IPropsArticleParamsForm) => {
-	const [formState, setFormState] = useState<IAllOptions>(defaultArticleState);
+export type ArticleParamsFormProps = {
+	onApply: (setState: ArticleStateType) => void;
+};
 
-	// Создаём ссылку на форму, чтобы отслеживать клики вне её области
-	const formRef = useRef<HTMLDivElement | null>(null);
+export const ArticleParamsForm = (prop: ArticleParamsFormProps) => {
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+	const [formState, setFormState] =
+		useState<ArticleStateType>(defaultArticleState);
+	const asideRef = useRef<HTMLElement>(null);
 
-	// Функция для сброса параметров на значения по умолчанию
+	const closeMenu = () => {
+		setIsMenuOpen(false);
+	};
+
+	const toggleButton = () => {
+		setIsMenuOpen((prevState) => !prevState);
+	};
+
 	function setDefaultOptions() {
+		prop.onApply(defaultArticleState);
 		setFormState(defaultArticleState);
-		setPageState(defaultArticleState);
 	}
 
-	// Функция для обработки отправки формы
 	function submitForm(evt: React.SyntheticEvent) {
 		evt.preventDefault();
-		setPageState(formState);
+		setFormState(formState);
+		prop.onApply(formState);
 	}
 
-	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
-			// Проверяем, открыт ли контейнер и был ли клик вне формы
-			if (
-				openState &&
-				formRef.current &&
-				!formRef.current.contains(event.target as Node)
-			) {
-				toggleOpenFn();
-			}
-		}
-
-		// Добавляем слушатель событий клика
-		document.addEventListener('mousedown', handleClickOutside);
-
-		// Очищаем слушатель при размонтировании компонента
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [openState, toggleOpenFn]);
+	useClose({
+		isOpen: isMenuOpen,
+		onClose: closeMenu,
+		rootRef: asideRef,
+	});
 
 	return (
 		<>
-			<ArrowButton toggleOpenFn={toggleOpenFn} openState={openState} />
+			<ArrowButton onClick={toggleButton} isMenuOpen={isMenuOpen} />
 			<aside
-				ref={formRef} // Привязываем ссылку к форме
+				ref={asideRef}
 				className={clsx({
 					[styles.container]: true,
-					[styles.container_open]: openState,
+					[styles.container_open]: isMenuOpen,
 				})}>
 				<form className={styles.form} onSubmit={submitForm}>
 					<Text as='h1' size={31} weight={800} uppercase dynamicLite>
